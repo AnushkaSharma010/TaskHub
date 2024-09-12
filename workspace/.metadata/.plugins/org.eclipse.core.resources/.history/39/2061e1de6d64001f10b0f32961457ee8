@@ -1,0 +1,45 @@
+package com.project_task_hub.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.project_task_hub.entity.Invitation;
+import com.project_task_hub.repository.InvitationRepository;
+
+@Service
+@Transactional
+public class InvitationServiceImpl implements InvitationService{
+	
+	@Autowired
+	private InvitationRepository invitationRepository;
+	
+	@Autowired
+	private EmailService emailService;
+	
+
+	@Override
+	public void sendInvitation(String email, Long projectId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Invitation acceptInvitation(String token, Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getTokenByUserMail(String userEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteToken(String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,31 @@
+package com.project_task_hub.service;
+
+import com.project_task_hub.entity.User;
+
+public class UserServiceImpl implements UserService {
+
+	@Override
+	public User findUserProfileByJwt(String jwt) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserById(Long userId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByEmailId(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateUserProjectSize(User user, int number) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

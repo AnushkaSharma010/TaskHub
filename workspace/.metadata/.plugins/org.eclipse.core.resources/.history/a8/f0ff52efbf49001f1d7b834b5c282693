@@ -1,0 +1,75 @@
+package com.project_task_hub.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
+
+
+@Entity
+
+public class Issues {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ElementCollection
+	private List<String> tags = new ArrayList<>();
+	@ManyToOne
+	private User assignee;
+	
+	@ManyToOne
+	private Project project;
+	
+	@ManyToMany
+	List<User> team = new ArrayList<>();
+
+	
+	
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public List<User> getTeam() {
+		return team;
+	}
+
+	public void setTeam(List<User> team) {
+		this.team = team;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getAssignee() {
+		return assignee;
+	}
+
+	public void setAssignee(User assignee) {
+		this.assignee = assignee;
+	}
+}

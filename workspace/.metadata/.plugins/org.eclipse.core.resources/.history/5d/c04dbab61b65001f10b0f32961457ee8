@@ -1,0 +1,22 @@
+package com.project_task_hub.service;
+
+import java.util.Optional;
+
+import com.project_task_hub.entity.Issues;
+import com.project_task_hub.request.IssueRequest;
+
+public interface IssueService {
+
+	Optional<Issues> getIssueById(Long issueId) throws Exception;
+	
+	List<Issues> getIssueByProjectId(Long projectId) throws Exception;
+	
+	Issues createIssue(IssueRequest issue, Long userId) throws Exception;
+
+	String deleteIssue(Long issueId, Long userId) throws Exception;
+	
+	Issues addUserToIssue(Long issueId, Long userId) throws Exception;
+	
+	Issues updateIssueStatus(Long issueId, String status) throws Exception;
+
+}

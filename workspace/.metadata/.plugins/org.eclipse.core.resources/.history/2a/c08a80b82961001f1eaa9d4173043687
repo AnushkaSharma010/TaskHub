@@ -1,0 +1,6 @@
+package com.project_task_hub.service;
+
+public interface EmailService {
+
+	void sendEmailWithToken(String userEmail, String link);
+}

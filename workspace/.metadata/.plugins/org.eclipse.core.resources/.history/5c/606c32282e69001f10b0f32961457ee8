@@ -1,0 +1,5 @@
+package com.project_task_hub.dto;
+
+public class IssueDTO {
+
+}

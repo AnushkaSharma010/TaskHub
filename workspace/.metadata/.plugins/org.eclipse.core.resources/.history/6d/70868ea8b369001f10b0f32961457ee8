@@ -1,0 +1,5 @@
+package com.project_task_hub.service;
+
+public interface CommentService {
+
+}
