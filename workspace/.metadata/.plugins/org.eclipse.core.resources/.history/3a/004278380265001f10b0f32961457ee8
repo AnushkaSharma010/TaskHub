@@ -1,0 +1,5 @@
+package com.project_task_hub.request;
+
+public class IssueRequest {
+
+}

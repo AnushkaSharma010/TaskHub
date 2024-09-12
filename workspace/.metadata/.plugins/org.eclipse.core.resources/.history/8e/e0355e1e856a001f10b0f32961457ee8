@@ -1,0 +1,100 @@
+package com.project_task_hub.Controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project_task_hub.dto.IssueDTO;
+import com.project_task_hub.entity.Issues;
+import com.project_task_hub.entity.User;
+import com.project_task_hub.request.IssueRequest;
+import com.project_task_hub.response.MessageResponse;
+import com.project_task_hub.service.IssueService;
+import com.project_task_hub.service.UserService;
+
+@RestController
+@RequestMapping("/issues")
+public class IssueController {
+	
+	@Autowired
+	private IssueService issueService;
+	
+	@Autowired
+	private UserService userService;
+	
+	
+	@GetMapping("/{issueId}")
+	public ResponseEntity<Issues> getIssueById(@PathVariable Long issueId) throws Exception{
+		Issues issue = issueService.getIssueById(issueId);
+		return new ResponseEntity<>(issue,HttpStatus.OK);
+	}
+	
+	@GetMapping("/project/{projectId}")
+	public ResponseEntity<List<Issues>> getIssuesByProjectId(@PathVariable Long projectId) throws Exception{
+		List<Issues> issues = issueService.getIssueByProjectId(projectId);
+		return new ResponseEntity<List<Issues>>(issues,HttpStatus.OK);
+	}
+
+	@PostMapping("/")
+	public ResponseEntity<IssueDTO> createIssue(@RequestBody IssueRequest issueRequest, 
+			@RequestHeader ("Autherization") String token) throws Exception{
+		
+		User userToken = userService.findUserProfileByJwt(token);
+		User user = userService.findUserById(userToken.getId());
+		
+		Issues issues = issueService.createIssue(issueRequest, userToken);
+		IssueDTO issueDTO = new IssueDTO();
+		issueDTO.setId(issues.getId());
+		issueDTO.setDescription(issues.getDescription());
+		issueDTO.setDueDate(issues.getDueDate());
+		issueDTO.setPriority(issues.getPriority());
+		issueDTO.setProject(issues.getProject());
+		issueDTO.setProjectId(issues.getProjectID());
+		issueDTO.setStatus(issues.getStatus());
+		issueDTO.setTags(issues.getTags());
+		issueDTO.setTitle(issues.getTitle());
+		issueDTO.setAssignee(issues.getAssignee());
+		
+		return new ResponseEntity<IssueDTO>(issueDTO,HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/{issueId}")
+	public ResponseEntity<MessageResponse> deleteIssue(@PathVariable Long issueId,
+			@RequestHeader("Autherization") String token) throws Exception{
+		
+		User user = userService.findUserProfileByJwt(token);
+		issueService.deleteIssue(issueId, user.getId() );
+		MessageResponse res = new MessageResponse();
+		res.setMessage("Issue Deleted..");
+		
+		return new ResponseEntity<MessageResponse>(res,HttpStatus.OK);
+	}
+	
+	@PutMapping("/{issueId}/assignee/{userId}")
+	public ResponseEntity<Issues> addUserToIssue(@PathVariable Long issueId, 
+			@PathVariable Long userid) throws Exception{
+		
+	Issues issue = issueService.addUserToIssue(issueId, userid);
+		return new ResponseEntity<Issues>(issue,HttpStatus.OK);
+	}
+	
+	@PutMapping("/{issueId}/update/{status}")
+	public ResponseEntity<Issues> updateStatus(@PathVariable Long issueId,
+			@PathVariable String status)throws Exception{
+		
+		Issues issue = issueService.updateIssueStatus(issueId, status);
+		
+		return new ResponseEntity<Issues>(issue,HttpStatus.OK);
+	}
+}

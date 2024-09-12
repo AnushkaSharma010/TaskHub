@@ -1,0 +1,13 @@
+package com.project_task_hub.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.project_task_hub.entity.Invitation;
+
+public interface InvitationRepository extends JpaRepository<Invitation,Long> {
+
+	Invitation findByEmail(String userEmail);
+	
+	Invitation findByToken(String token);
+	
+}

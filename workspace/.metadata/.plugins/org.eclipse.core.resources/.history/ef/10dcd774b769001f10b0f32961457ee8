@@ -1,0 +1,32 @@
+package com.project_task_hub.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.project_task_hub.entity.Comments;
+
+@Service
+@Transactional
+public class CommentServiceImpl implements CommentService {
+
+	@Override
+	public Comments createComment(Long issueId, Long userId, String commentContent) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Comments deleteComment(Long commentId, Long userId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Comments> findCommentsByIssueId(Long issueId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
